@@ -11,22 +11,26 @@ namespace ToDoApplication
     {
         public ListTasks(string[] args)
         {
-            if (args[0] == "-l")
+            if(args.Length > 0)
             {
-                string[] obsah = File.ReadAllLines("ListTask.txt");
+                if (args[0] == "-l")
+                {
+                    string[] obsah = File.ReadAllLines("ListTask.txt");
 
-                if(obsah.Length == 0)
-                {
-                    Console.WriteLine("No todos for today! :)");
-                }
-                else
-                {
-                    for (int i = 0; i < obsah.Length; i++)
+                    if (obsah.Length == 0)
                     {
-                        Console.WriteLine(i + 1 + "." + obsah[i]);
+                        Console.WriteLine("No todos for today! :)");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < obsah.Length; i++)
+                        {
+                            Console.WriteLine(i + 1 + "." + obsah[i]);
+                        }
                     }
                 }
             }
+           
         }
 
     }

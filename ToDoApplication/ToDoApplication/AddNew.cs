@@ -11,30 +11,38 @@ namespace ToDoApplication
     {
         public AddNew(string[] args)
         {
-            if (args[0] == "-a")
+            if(args.Length > 0)
             {
-                if (args.Length > 1)
+                if (args[0] == "-a")
                 {
-                    try
+                    if (args.Length > 1)
                     {
-                        string path = "ListTask.txt";
-                        File.AppendAllText(path,  "[ ]" + args[1] +"\r\n" );
+                        try
+                        {
+                            string path = "ListTask.txt";
+                            for (int i = 1; i < args.Length; i++)
+                            {
+                                File.AppendAllText(path, "[ ]" + args[i] + "\r\n");
+                            }
+                            
+
+                        }
+                        catch
+                        {
+                            Console.WriteLine("File writing doesnt work");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Unable to add: no task provided");
 
                     }
-                    catch
-                    {
-                        Console.WriteLine("File writing doesnt work");
-                    }
+
+
+
                 }
-                else
-                {
-                    Console.WriteLine("Unable to add: no task provided");
-                   
-                }
-               
-               
-                
             }
+            
             
         }
     }

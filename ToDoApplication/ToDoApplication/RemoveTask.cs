@@ -11,45 +11,49 @@ namespace ToDoApplication
     {
         public RemoveTask(string[] args)
         {
-            if (args[0] == "-r")
+            if(args.Length > 0)
             {
-                if (args.Length > 1)
+                if (args[0] == "-r")
                 {
-                    try
+                    if (args.Length > 1)
                     {
-                        string path = "ListTask.txt";
-                        string[] theWholeFile = File.ReadAllLines(path);
-
-                        if(int.TryParse(args[1], out int position))
+                        try
                         {
-                            if (theWholeFile.Length < position)
+                            string path = "ListTask.txt";
+                            string[] theWholeFile = File.ReadAllLines(path);
+
+                            if (int.TryParse(args[1], out int position))
                             {
-                                Console.WriteLine("Unable to remove: index is out of bound");
+                                if (theWholeFile.Length < position-1)
+                                {
+                                    Console.WriteLine("Unable to remove: index is out of bound");
+                                }
+                                else
+                                {
+                                    List<string> fileList = new List<string>();
+                                    fileList.AddRange(theWholeFile);
+                                    fileList.RemoveAt(int.Parse(args[1])-1);
+                                    File.WriteAllLines(path, fileList.ToArray());
+                                }
                             }
                             else
                             {
-                                List<string> fileList = new List<string>();
-                                fileList.AddRange(theWholeFile);
-                                fileList.RemoveAt(int.Parse(args[1]));
-                                File.WriteAllLines(path, fileList.ToArray());
+                                Console.WriteLine("Unable to remove: index is not a number");
                             }
+
                         }
-                        else
+                        catch
                         {
-                            Console.WriteLine("Unable to remove: index is not a number");
+                            Console.WriteLine("File deleting doesnt work");
                         }
-                        
                     }
-                    catch
+                    else
                     {
-                        Console.WriteLine("File deleting doesnt work");
+                        Console.WriteLine("Unable to remove: no index provided");
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Unable to remove: no index provided");
                 }
             }
+            
         }
     }
 }

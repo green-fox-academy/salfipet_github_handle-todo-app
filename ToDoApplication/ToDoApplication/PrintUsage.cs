@@ -10,13 +10,13 @@ namespace ToDoApplication
     {
         public PrintUsage(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length == 0 || args[0] == "")
             {
                 for (int i = 0; i < TextPrint().Length ; i++)
                 {
                     Console.WriteLine(TextPrint()[i]);
                 }
-                Console.ReadLine();
+                // Console.ReadLine();
             }
             
            

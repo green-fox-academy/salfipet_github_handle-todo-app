@@ -11,40 +11,44 @@ namespace ToDoApplication
     {
         public CheckTask(string[] args)
         {
-            if (args[0] == "-c")
+            if(args.Length > 0)
             {
-                if (args.Length > 1)
+                if (args[0] == "-c")
                 {
-                    string path = "ListTask.txt";
-                    string[] theWholeFile = File.ReadAllLines(path);
-
-                    if (int.TryParse(args[1], out int position))
+                    if (args.Length > 1)
                     {
-                        if (theWholeFile.Length < position)
+                        string path = "ListTask.txt";
+                        string[] theWholeFile = File.ReadAllLines(path);
+
+                        if (int.TryParse(args[1], out int position))
                         {
-                            Console.WriteLine("Unable to check: index is out of bound");
+                            if (theWholeFile.Length < position)
+                            {
+                                Console.WriteLine("Unable to check: index is out of bound");
+                            }
+                            else
+                            {
+                                List<string> fileList = new List<string>();
+                                fileList.AddRange(theWholeFile);
+                                fileList[int.Parse(args[1]) - 1] = fileList[int.Parse(args[1]) - 1].Insert(1, "X");
+                                fileList[int.Parse(args[1]) - 1] = fileList[int.Parse(args[1]) - 1].Remove(2, 1);
+                                File.WriteAllLines(path, fileList.ToArray());
+                            }
+
                         }
                         else
                         {
-                            List<string> fileList = new List<string>();
-                            fileList.AddRange(theWholeFile);
-                            fileList[int.Parse(args[1]) - 1] = fileList[int.Parse(args[1]) - 1].Insert(1, "X");
-                            fileList[int.Parse(args[1]) - 1] = fileList[int.Parse(args[1]) - 1].Remove(2, 1);
-                            File.WriteAllLines(path, fileList.ToArray());
+                            Console.WriteLine("Unable to check: index is not a number");
                         }
 
                     }
                     else
                     {
-                        Console.WriteLine("Unable to check: index is not a number");
+                        Console.WriteLine("Unable to check: no index provided");
                     }
-                     
-                }
-                else
-                {
-                    Console.WriteLine("Unable to check: no index provided");
                 }
             }
+           
         }
     }
 }
